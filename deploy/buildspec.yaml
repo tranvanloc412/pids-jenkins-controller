@@ -1,0 +1,51 @@
+version: 0.2
+phases:
+  install:
+    commands:
+
+  pre_build:
+    commands:
+      # # Verify AWS CLI Version
+      - echo "Verify AWS CLI Version..."
+      - aws --version
+       # Docker Image Tag Code Buiild Resolved Source Version
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 6)
+      - TAG=${COMMIT_HASH:=latest}
+      # Login to ECR Registry for docker to push the image to ECR Repository
+      - echo "Login in to Amazon ECR..."
+      - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ECR
+
+  build:
+    commands:
+      # Build Docker Image
+      - echo "Build started on `date`"
+      - echo "Building the Docker image..."
+      - docker build --tag $REPOSITORY_URI:$TAG .
+
+  post_build:
+    commands:
+      # Push Docker Image to ECR Repository
+      - echo "Build completed on `date`"
+      - echo "Pushing the Docker image to ECR Repository"
+      - docker push $REPOSITORY_URI:$TAG
+      - echo "Docker Image Push to ECR Completed -  $REPOSITORY_URI:$TAG"
+      # Move deploy artifact to home directory
+      - echo "Move deploy artifact to home directory"
+      - mv deploy/appspec.yaml .
+      - mv deploy/taskdef.json .
+      # Create Artifacts which we can use if we want to continue our pipeline for other stages
+      - printf '{"ImageURI":"%s"}' $REPOSITORY_URI:$TAG > imageDetail.json
+artifacts:
+  files:
+    - image*.json
+    - appspec.yaml
+    - taskdef.json
+  secondary-artifacts:
+    DefinitionArtifact:
+      files:
+        - appspec.yaml
+        - taskdef.json
+    ImageArtifact:
+      files:
+        - imageDetail.json
+

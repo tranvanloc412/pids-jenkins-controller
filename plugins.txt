@@ -24,7 +24,7 @@ git:4.10.0
 github-api:1.133
 github:1.29.5
 handlebars:3.0.8
-jackson2-api:2.13.2-260.v43d711474c77
+jackson2-api:2.13.2.20220328-273.v11d70a_b_a_1a_52
 jdk-tool:1.4
 jquery-detached:1.2.1
 jsch:0.1.55.2

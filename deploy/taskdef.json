@@ -1,0 +1,68 @@
+{
+  "taskRoleArn": "arn:aws:iam::398692602192:role/pids-ci-controller-task-role",
+  "executionRoleArn": "arn:aws:iam::398692602192:role/pids-ci-controller-task-role",
+  "containerDefinitions": [
+    {
+      "name": "pids-ci-controller",
+      "image": "<IMAGE1_NAME>",
+      "cpu": 1024,
+      "memory": 2048,
+      "memoryReservation": 2048,
+      "environment": [
+        {
+          "name": "JAVA_OPTS",
+          "value": "-Djenkins.install.runSetupWizard=false"
+        }
+      ],
+      "essential": true,
+      "mountPoints": [
+        {
+          "containerPath": "/var/jenkins_home",
+          "sourceVolume": "pids-ci-efs"
+        }
+      ],
+      "portMappings": [
+        {
+          "containerPort": 8080
+        },
+        {
+          "containerPort": 50000
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "pids-ci-jenkins-controller",
+          "awslogs-region": "ap-southeast-1",
+          "awslogs-stream-prefix": "controller"
+        }
+      },
+      "secrets": [
+        {
+          "valueFrom": "arn:aws:ssm:ap-southeast-1:398692602192:parameter/jenkins-pwd",
+          "name": "ADMIN_PWD"
+        }
+      ]
+    }
+  ],
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "networkMode": "awsvpc",
+  "cpu": "1024",
+  "memory": "2048",
+  "family": "pids-ci",
+  "volumes": [
+    {
+      "efsVolumeConfiguration": {
+        "fileSystemId": "fs-0d435aaa6d93b950e",
+        "transitEncryption": "ENABLED",
+        "authorizationConfig": {
+          "iam": "ENABLED",
+          "accessPointId": "fsap-097a68c3561f951b8"
+        }
+      },
+      "name": "pids-ci-efs"
+    }
+  ]
+}

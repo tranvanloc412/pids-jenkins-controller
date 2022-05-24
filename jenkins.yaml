@@ -30,8 +30,7 @@ jenkins:
         retentionTimeout: 10
         jenkinsUrl: "http://controller.pids-ci:8080"
         templates:
-          - assignPublicIp: true
-            cpu: "512"
+          - cpu: "512"
             image: "jenkins/inbound-agent"
             label: "build-example-spot"
             executionRole: arn:aws:iam::398692602192:role/pids-ci-ecs-execution-role
@@ -42,6 +41,7 @@ jenkins:
             privileged: false
             remoteFSRoot: "/home/jenkins"
             securityGroups: sg-005a9da8b944ccf41
+            assignPublicIp: true
             sharedMemorySize: 0
             subnets: subnet-09d6725ac672682ee,subnet-0c8c9e8c5fae7356a,subnet-0ec4e135306025c55
             templateName: "build-example"
@@ -55,8 +55,7 @@ jenkins:
         retentionTimeout: 10
         jenkinsUrl: "http://controller.pids-ci:8080"
         templates:
-          - assignPublicIp: true
-            cpu: "512"
+          - cpu: "512"
             image: "jenkins/inbound-agent"
             label: "build-example"
             executionRole: arn:aws:iam::398692602192:role/pids-ci-ecs-execution-role
@@ -67,6 +66,7 @@ jenkins:
             privileged: false
             remoteFSRoot: "/home/jenkins"
             securityGroups: sg-005a9da8b944ccf41
+            assignPublicIp: true
             sharedMemorySize: 0
             subnets: subnet-09d6725ac672682ee,subnet-0c8c9e8c5fae7356a,subnet-0ec4e135306025c55
             templateName: "build-example"
@@ -76,56 +76,32 @@ security:
     port: -1
 jobs:
   - script: >
-      pipelineJob('Simple job critical task') {
-        definition {
-          cps {
-            script('''
-              pipeline {
-                  agent {
-                      ecs {
-                          inheritFrom 'build-example'
-                      }
-                  }
-                  stages {
-                    stage('Test') {
-                        steps {
-                            script {
-                                sh "echo this was executed on non spot instance"
-                            }
-                            sh 'sleep 120'
-                            sh 'echo sleep is done'
-                        }
-                    }
-                  }
-              }'''.stripIndent())
-              sandbox()
-          }
+      job('example') {
+        label('build-example-spot')
+        scm {
+            github('loc-org/jenkins-jobs', 'main')
+        }
+        triggers {
+            githubPush()
+        }
+        steps {
+            dsl(['main.groovy'])
         }
       }
   - script: >
-      pipelineJob('Simple job non critical task') {
+      pipelineJob('github-demo') {
         definition {
-          cps {
-            script('''
-              pipeline {
-                  agent {
-                      ecs {
-                          inheritFrom 'build-example-spot'
-                      }
-                  }
-                  stages {
-                    stage('Test') {
-                        steps {
-                            script {
-                                sh "echo this was executed on a spot instance"
-                            }
-                            sh 'sleep 120'
-                            sh 'echo sleep is done'
+            cpsScm {
+                scm {
+                    git {
+                        remote {
+                            github('loc-org/jenkins-jobs')
+                            credentials('github')
                         }
+                        branch('*/main')
                     }
-                  }
-              }'''.stripIndent())
-              sandbox()
-          }
+                }
+                scriptPath('main.groovy')
+            }
         }
       }
