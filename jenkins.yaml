@@ -1,5 +1,30 @@
+credentials:
+  system:
+    domainCredentials:
+    - credentials:
+      - usernamePassword:
+          id: "github"
+          password: "{AQAAABAAAAAwE5GExO/d71/ZJmtxH4rZhEY4lTJUpsspPq/g3J3sTYkV0U2qTTtQDyQKt6IIaDWhxIdfiSvYXn4zqsUToGX2Yg==}"
+          scope: GLOBAL
+          username: "loctran-org"
+      - basicSSHUserPrivateKey:
+          description: "jenkins-fleet"
+          id: "52e8e1ff-08df-4abd-8cf8-54f57143c12b"
+          privateKeySource:
+            directEntry:
+              privateKey: "{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}"
+          scope: SYSTEM
+          username: "ubuntu"
+      - basicSSHUserPrivateKey:
+          id: "ec2-fleet"
+          passphrase: "{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}"
+          privateKeySource:
+            directEntry:
+              privateKey: "{AQAAABAAAAAQoaKRBv8oRCE5W0a+LpkTciU4GTNHTbIpNBnPl/lHVU0=}"
+          scope: GLOBAL
+          username: "ubuntu"
 jenkins:
-  systemMessage: "Amazon Fargate Demo"
+  systemMessage: "PIDS-Jenkins-Master"
   numExecutors: 0
   remotingSecurity:
     enabled: true
@@ -21,56 +46,33 @@ jenkins:
   crumbIssuer: "standard"
   slaveAgentPort: 50000
   clouds:
-    - ecs:
-        allowedOverrides: "inheritFrom,label,memory,cpu,image"
-        credentialsId: ""
-        cluster: arn:aws:ecs:ap-southeast-1:398692602192:cluster/pids-ci-spot
-        name: "fargate-cloud-spot"
-        regionName: ap-southeast-1
-        retentionTimeout: 10
-        jenkinsUrl: "http://controller.pids-ci:8080"
-        templates:
-          - cpu: "512"
-            image: "jenkins/inbound-agent"
-            label: "build-example-spot"
-            executionRole: arn:aws:iam::398692602192:role/pids-ci-ecs-execution-role
-            launchType: "FARGATE"
-            memory: 0
-            memoryReservation: 1024
-            networkMode: "awsvpc"
-            privileged: false
-            remoteFSRoot: "/home/jenkins"
-            securityGroups: sg-005a9da8b944ccf41
-            assignPublicIp: true
-            sharedMemorySize: 0
-            subnets: subnet-09d6725ac672682ee,subnet-0c8c9e8c5fae7356a,subnet-0ec4e135306025c55
-            templateName: "build-example"
-            uniqueRemoteFSRoot: false
-    - ecs:
-        allowedOverrides: "inheritFrom,label,memory,cpu,image"
-        credentialsId: ""
-        cluster: arn:aws:ecs:ap-southeast-1:398692602192:cluster/pids-ci-main
-        name: "fargate-cloud"
-        regionName: ap-southeast-1
-        retentionTimeout: 10
-        jenkinsUrl: "http://controller.pids-ci:8080"
-        templates:
-          - cpu: "512"
-            image: "jenkins/inbound-agent"
-            label: "build-example"
-            executionRole: arn:aws:iam::398692602192:role/pids-ci-ecs-execution-role
-            launchType: "FARGATE"
-            memory: 0
-            memoryReservation: 1024
-            networkMode: "awsvpc"
-            privileged: false
-            remoteFSRoot: "/home/jenkins"
-            securityGroups: sg-005a9da8b944ccf41
-            assignPublicIp: true
-            sharedMemorySize: 0
-            subnets: subnet-09d6725ac672682ee,subnet-0c8c9e8c5fae7356a,subnet-0ec4e135306025c55
-            templateName: "build-example"
-            uniqueRemoteFSRoot: false
+  - eC2Fleet:
+      addNodeOnlyIfRunning: false
+      alwaysReconnect: false
+      cloudStatusIntervalSec: 10
+      computerConnector:
+        sSHConnector:
+          credentialsId: "ec2-fleet"
+          launchTimeoutSeconds: 60
+          maxNumRetries: 10
+          port: 22
+          retryWaitTime: 15
+          sshHostKeyVerificationStrategy: "nonVerifyingKeyVerificationStrategy"
+      fleet: "jenkins-slave-asg"
+      idleMinutes: 3
+      initOnlineCheckIntervalSec: 15
+      initOnlineTimeoutSec: 180
+      labelString: "tooling"
+      maxSize: 1
+      maxTotalUses: -1
+      minSize: 1
+      minSpareSize: 0
+      name: "FleetCloud"
+      numExecutors: 2
+      privateIpUsed: true
+      region: "ap-southeast-1"
+      restrictUsage: false
+      scaleExecutorsByWeight: false
 security:
   sSHD:
     port: -1
