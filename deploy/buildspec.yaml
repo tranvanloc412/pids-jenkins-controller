@@ -10,6 +10,7 @@ phases:
       - aws --version
        # Docker Image Tag Code Buiild Resolved Source Version
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 6)
+      - CONTAINER_NAME='pids-ci-controller' 
       - TAG=${COMMIT_HASH:=latest}
       # Login to ECR Registry for docker to push the image to ECR Repository
       - echo "Login in to Amazon ECR..."
@@ -34,7 +35,8 @@ phases:
       - mv deploy/appspec.yaml .
       - mv deploy/taskdef.json .
       # Create Artifacts which we can use if we want to continue our pipeline for other stages
-      - printf '{"ImageURI":"%s"}' $REPOSITORY_URI:$TAG > imageDetail.json
+      - printf '[{"name":"%s","imageUri":"%s"}]' $CONTAINER_NAME $REPOSITORY_URI:$TAG > imagedefinitions.json
+      # - printf '[{"ImageURI":"%s"}]' $REPOSITORY_URI:$TAG > imagedefinitions.json
 artifacts:
   files:
     - image*.json
@@ -47,5 +49,5 @@ artifacts:
         - taskdef.json
     ImageArtifact:
       files:
-        - imageDetail.json
+        - imagedefinitions.json
 

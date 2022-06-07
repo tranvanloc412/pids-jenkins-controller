@@ -21,56 +21,71 @@ jenkins:
   crumbIssuer: "standard"
   slaveAgentPort: 50000
   clouds:
-    - ecs:
-        allowedOverrides: "inheritFrom,label,memory,cpu,image"
-        credentialsId: ""
-        cluster: arn:aws:ecs:ap-southeast-1:398692602192:cluster/pids-ci-spot
-        name: "fargate-cloud-spot"
-        regionName: ap-southeast-1
-        retentionTimeout: 10
-        jenkinsUrl: "http://controller.pids-ci:8080"
-        templates:
-          - cpu: "512"
-            image: "jenkins/inbound-agent"
-            label: "build-example-spot"
-            executionRole: arn:aws:iam::398692602192:role/pids-ci-ecs-execution-role
-            launchType: "FARGATE"
-            memory: 0
-            memoryReservation: 1024
-            networkMode: "awsvpc"
-            privileged: false
-            remoteFSRoot: "/home/jenkins"
-            securityGroups: sg-005a9da8b944ccf41
-            assignPublicIp: true
-            sharedMemorySize: 0
-            subnets: subnet-09d6725ac672682ee,subnet-0c8c9e8c5fae7356a,subnet-0ec4e135306025c55
-            templateName: "build-example"
-            uniqueRemoteFSRoot: false
-    - ecs:
-        allowedOverrides: "inheritFrom,label,memory,cpu,image"
-        credentialsId: ""
-        cluster: arn:aws:ecs:ap-southeast-1:398692602192:cluster/pids-ci-main
-        name: "fargate-cloud"
-        regionName: ap-southeast-1
-        retentionTimeout: 10
-        jenkinsUrl: "http://controller.pids-ci:8080"
-        templates:
-          - cpu: "512"
-            image: "jenkins/inbound-agent"
-            label: "build-example"
-            executionRole: arn:aws:iam::398692602192:role/pids-ci-ecs-execution-role
-            launchType: "FARGATE"
-            memory: 0
-            memoryReservation: 1024
-            networkMode: "awsvpc"
-            privileged: false
-            remoteFSRoot: "/home/jenkins"
-            securityGroups: sg-005a9da8b944ccf41
-            assignPublicIp: true
-            sharedMemorySize: 0
-            subnets: subnet-09d6725ac672682ee,subnet-0c8c9e8c5fae7356a,subnet-0ec4e135306025c55
-            templateName: "build-example"
-            uniqueRemoteFSRoot: false
+    # - ecs:
+    #     allowedOverrides: "inheritFrom,label,memory,cpu,image"
+    #     credentialsId: ""
+    #     cluster: arn:aws:ecs:ap-southeast-1:398692602192:cluster/pids-ci-spot
+    #     name: "fargate-cloud-spot"
+    #     regionName: ap-southeast-1
+    #     retentionTimeout: 10
+    #     jenkinsUrl: "http://controller.pids-ci:8080"
+    #     templates:
+    #       - cpu: "512"
+    #         image: "jenkins/inbound-agent"
+    #         label: "build-example-spot"
+    #         executionRole: arn:aws:iam::398692602192:role/pids-ci-ecs-execution-role
+    #         launchType: "FARGATE"
+    #         memory: 0
+    #         memoryReservation: 1024
+    #         networkMode: "awsvpc"
+    #         privileged: false
+    #         remoteFSRoot: "/home/jenkins"
+    #         securityGroups: sg-005a9da8b944ccf41
+    #         assignPublicIp: true
+    #         sharedMemorySize: 0
+    #         subnets: subnet-09d6725ac672682ee,subnet-0c8c9e8c5fae7356a,subnet-0ec4e135306025c55
+    #         templateName: "build-example"
+    #         uniqueRemoteFSRoot: false
+    # - ecs:
+    #     allowedOverrides: "inheritFrom,label,memory,cpu,image"
+    #     credentialsId: ""
+    #     cluster: arn:aws:ecs:ap-southeast-1:398692602192:cluster/pids-ci-main
+    #     name: "fargate-cloud"
+    #     regionName: ap-southeast-1
+    #     retentionTimeout: 10
+    #     jenkinsUrl: "http://controller.pids-ci:8080"
+    #     templates:
+    #       - cpu: "512"
+    #         image: "jenkins/inbound-agent"
+    #         label: "build-example"
+    #         executionRole: arn:aws:iam::398692602192:role/pids-ci-ecs-execution-role
+    #         launchType: "FARGATE"
+    #         memory: 0
+    #         memoryReservation: 1024
+    #         networkMode: "awsvpc"
+    #         privileged: false
+    #         remoteFSRoot: "/home/jenkins"
+    #         securityGroups: sg-005a9da8b944ccf41
+    #         assignPublicIp: true
+    #         sharedMemorySize: 0
+    #         subnets: subnet-09d6725ac672682ee,subnet-0c8c9e8c5fae7356a,subnet-0ec4e135306025c55
+    #         templateName: "build-example"
+    #         uniqueRemoteFSRoot: false
+    # - ec2Fleet:
+    #     name: ec2-fleet
+    #     labelString: slave
+    #     computerConnector:
+    #         ssh:
+    #             credentialsId: ubuntu
+    #             sshHostKeyVerificationStrategy:
+    #               NonVerifyingKeyVerificationStrategy
+    #     region: ap-southeast-1
+    #     fleet: "Auto Scaling Group - jenkins-slave-asg"
+    #     minSize: 1
+    #     maxSize: 2
+    #     privateIpUsed: true
+    #     numExecutors: 2
+    #     idleMinutes: 5
 security:
   sSHD:
     port: -1
