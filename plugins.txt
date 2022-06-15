@@ -73,3 +73,4 @@ ec2-fleet:2.5.1
 ansible:1.1
 ssh-agent:295.v9ca_a_1c7cc3a_a_
 github-branch-source:1637.vd833b_7ca_7654
+uno-choice:2.6.2
